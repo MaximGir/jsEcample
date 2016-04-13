@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  
+<script>
+	var user = {
+  firstName: "Вася",
+  surname: "Петров",
+
+  get fullName() {
+    return this.firstName + ' ' + this.surname;
+  },
+
+  set fullName(value) {
+    var split = value.split(' ');
+    this.firstName = split[0];
+    this.surname = split[1];
+  }
+};
+
+alert( user.fullName ); // Вася Петров (из геттера)
+
+user.fullName = "Петя Иванов";
+alert( user.firstName ); // Петя  (поставил сеттер)
+alert( user.surname ); // Иванов (поставил сеттер)
+alert( user.fullName ); 
+	/*function Accumulator(num){
+		this.value = num;
+		this.read = function (){
+			this.value += +prompt('Сколько будем добавлять?', 0);
+		}
+		
+	}
+	
+	
+	
+	
+	var accumulator = new Accumulator(1); 
+	accumulator.read(); 
+	accumulator.read(); 
+	alert( accumulator.value );*/ 
+</script>
+
+
+
+</body>
+
+</html>

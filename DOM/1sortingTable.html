@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script>
+
+    window.onload = function() {
+
+      function sort(id, colNumber) {
+        var table = document.getElementById(id);
+        var tr = table.querySelectorAll('tr');
+        var mainArr = [];
+
+        // Creating an array from the table
+        for (var i = 1; i < tr.length; i++) {
+          var arr = [];
+          for (var j = 0; j < tr[i].children.length; j++) {
+            arr.push(tr[i].children[j].textContent)
+          }
+          mainArr.push(arr);
+          tr[i].remove();
+        }
+
+        // Adding & removing classes
+        if (tr[0].children[colNumber].classList.contains('up')) {
+          mainArr.sort((a, b) => +a[colNumber] ? +a[colNumber] < +b[colNumber] : a[colNumber] < b[colNumber]);
+          for (i = 0; i < tr[0].children.length; i++) {
+            tr[0].children[i].classList.remove('up');
+            tr[0].children[i].classList.remove('down')
+          }
+          tr[0].children[colNumber].classList.add('down');
+        }
+        else {
+          mainArr.sort((a, b) => +a[colNumber] ? +a[colNumber] > +b[colNumber] : a[colNumber] > b[colNumber]);
+          for (i = 0; i < tr[0].children.length; i++) {
+            tr[0].children[i].classList.remove('up');
+            tr[0].children[i].classList.remove('down')
+          }
+          tr[0].children[colNumber].classList.add('up');
+        }
+
+        // Making new table & applying it
+        var newTableText = '';
+        for (i = 0; i < mainArr.length; i++) {
+          newTableText += '<tr>';
+          for (j = 0; j < mainArr[i].length; j++) {
+            newTableText += '<td>' + mainArr[i][j] + '</td>';
+          }
+          newTableText += '</tr>';
+        }
+
+        tr[0].insertAdjacentHTML('afterEnd',newTableText);
+      }
+
+      // Adding listeners
+      function applyingSort(tableID) {
+        var headers = document.getElementById(tableID).getElementsByTagName('th');
+        for (var i = 0; i < headers.length; i++)
+          (function(i) {headers[i].addEventListener('click', () => {sort(tableID, i)})})(i);
+      }
+
+      applyingSort('table');
+
+    }
+
+  </script>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 300px;
+      margin: 20px;
+    }
+
+    table td {
+      border: 1px solid black;
+      padding: 2px;
+    }
+
+    table th {
+      cursor: pointer;
+    }
+
+    table th:after {
+      content: '';
+      border-left: 5px solid rgba(0,0,0,0);
+      border-right: 5px solid rgba(0,0,0,0);
+    }
+
+    table th.down:after {
+      content: '';
+      border-top: 5px solid black;
+      border-left: 5px solid rgba(0,0,0,0);
+      border-right: 5px solid rgba(0,0,0,0);
+      position: relative;
+      top: 13px;
+      left: 5px;
+    }
+
+    table th.up:after {
+      content: '';
+      border-bottom: 5px solid black;
+      border-left: 5px solid rgba(0,0,0,0);
+      border-right: 5px solid rgba(0,0,0,0);
+      position: relative;
+      top: -8px;
+      left: 5px;
+    }
+  </style>
+</head>
+
+<body>
+<div id="container">
+  <table id="table">
+    <tr><th>Имя</th><th>Возраст</th><th>Пол</th><th>Город</th></tr>
+    <tr><td>Вася</td><td>12</td><td>М</td><td>Москва</td></tr>
+    <tr><td>Глеб</td><td>56</td><td>М</td><td>Сидней</td></tr>
+    <tr><td>Наташа</td><td>23</td><td>Ж</td><td>Анкара</td></tr>
+    <tr><td>Миша</td><td>45</td><td>М</td><td>Будапешт</td></tr>
+    <tr><td>Катя</td><td>21</td><td>Ж</td><td>Мюнхен</td></tr>
+    <tr><td>Света</td><td>34</td><td>Ж</td><td>Прага</td></tr>
+    <tr><td>Петр</td><td>18</td><td>М</td><td>Одесса</td></tr>
+    <tr><td>Антон</td><td>78</td><td>М</td><td>Магадан</td></tr>
+    <tr><td>Вика</td><td>38</td><td>Ж</td><td>Москва</td></tr>
+  </table>
+</div>
+
+</body>
+</html>

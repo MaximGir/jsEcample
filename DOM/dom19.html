@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        .menu ul {
+            margin: 0;
+            list-style: none;
+            padding-left: 20px;
+            display: none;
+        }
+
+        .menu .title {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .menu .title::before {
+            content: '▶ ';
+            font-size: 80%;
+            color: green;
+        }
+
+        .menu.open .title::before {
+            content: '▼ ';
+        }
+
+        .menu.open ul {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<input type="text" id="sms"> символов: <span id="result"></span>
+<script>
+    function showCount() {
+        result.innerHTML = sms.value.length;
+    }
+
+    sms.onkeyup = sms.oninput = showCount;
+    sms.onpropertychange = function() {
+        if (event.propertyName == "value") showCount();
+    }
+    sms.oncut = function() {
+        setTimeout(showCount, 0); // на момент oncut значение еще старое
+    };
+</script>
+
+</body>
+
+</html>

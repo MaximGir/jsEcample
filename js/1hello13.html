@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  
+<script>
+function makeBuffer() { 
+	var str ='';
+	return function buffer(text){
+		if(arguments.length == 0){
+			return str;
+		};
+		str +=text;
+	};
+	buffer.clear = function(){
+		str = "";
+	};
+	return buffer;
+};
+
+
+
+var buffer = makeBuffer();
+buffer('Замыкания');
+buffer(' Использовать');
+buffer(' Нужно!');
+alert( buffer() ); 
+
+buffer.clear();
+    
+ alert( buffer() ); // ""
+</script>
+
+
+
+</body>
+
+</html>
